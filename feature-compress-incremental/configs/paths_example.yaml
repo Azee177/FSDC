@@ -1,0 +1,9 @@
+# Example paths. Copy this file to configs/paths.yaml and edit to match your environment.
+coco_root: /big-data/dataset-academic/COCO/train2017
+annotation_file: /big-data/dataset-academic/COCO/annotations/instances_train2017.json
+train_list: /big-data/person/xiaozeyu/FSDC/indices/train_list.txt
+val_list: /big-data/person/xiaozeyu/FSDC/indices/val_list.txt
+new_train_list: /big-data/person/xiaozeyu/FSDC/indices/new_train_list.txt
+new_val_list: /big-data/person/xiaozeyu/FSDC/indices/new_val_list.txt
+class_map: /big-data/person/xiaozeyu/FSDC/indices/class_map.json
+cache_root: /big-data/person/xiaozeyu/FSDC/outputs/cache

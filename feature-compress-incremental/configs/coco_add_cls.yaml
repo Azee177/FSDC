@@ -1,0 +1,7 @@
+# Incremental configuration for adding one COCO class
+image_size: 224
+new_class_ids: [4]          # 4 corresponds to motorcycle in COCO
+new_class_names: [motorcycle]
+use_patch: false
+train_ratio: 0.85
+split_seed: 42
