@@ -1,0 +1,10 @@
+{
+  "overall_acc": 0.8602987921169739,
+  "old_acc": 0.874606070658484,
+  "new_acc": 0.532319391634981,
+  "best_top1": 0.8602987921169739,
+  "replay_per_class": 10,
+  "temperature": 2.0,
+  "beta": 0.5,
+  "gamma": 0.0
+}

@@ -98,6 +98,18 @@ def format_seconds(seconds: float) -> str:  # 定义时间格式化函数
     return f'{minutes}分{remain:.1f}秒'  # 返回格式化结果
 
 
+
+_LOG_SINKS: set[str] = set()  # 记录已注册的日志文件路径
+
+def setup_logging(log_dir: Path, filename: str = 'run.log', level: str = 'INFO') -> Path:  # 定义日志保存函数
+    ensure_dir(log_dir)  # 确保日志目录存在
+    log_path = log_dir / filename  # 构建日志文件路径
+    key = str(log_path.resolve())  # 记录绝对路径避免重复添加
+    if key not in _LOG_SINKS:  # 判断是否已注册
+        logger.add(log_path, level=level, enqueue=True)  # 添加文件日志
+        _LOG_SINKS.add(key)  # 记录已注册
+    return log_path  # 返回日志路径
+
 def log_experiment_info(cfg: Dict[str, Any]) -> None:  # 定义实验信息打印函数
     logger.info('===== 实验配置 =====')  # 输出分隔线
     for key, value in cfg.items():  # 遍历配置项

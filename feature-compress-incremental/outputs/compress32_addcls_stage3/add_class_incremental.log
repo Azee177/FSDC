@@ -1,0 +1,33 @@
+2025-10-17 02:10:50.894 | INFO     | __main__:main:135 - Log file: outputs/compress32_addcls_stage3/add_class_incremental.log
+2025-10-17 02:10:50.894 | INFO     | src.utils.common:log_experiment_info:114 - ===== 实验配置 =====
+2025-10-17 02:10:50.894 | INFO     | src.utils.common:log_experiment_info:116 - coco_root: /big-data/dataset-academic/COCO/train2017
+2025-10-17 02:10:50.894 | INFO     | src.utils.common:log_experiment_info:116 - annotation_file: /big-data/dataset-academic/COCO/annotations/instances_train2017.json
+2025-10-17 02:10:50.894 | INFO     | src.utils.common:log_experiment_info:116 - train_list: /big-data/person/xiaozeyu/FSDC/indices/train_list.txt
+2025-10-17 02:10:50.894 | INFO     | src.utils.common:log_experiment_info:116 - val_list: /big-data/person/xiaozeyu/FSDC/indices/val_list.txt
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - new_train_list: /big-data/person/xiaozeyu/FSDC/indices/new_train_list.txt
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - new_val_list: /big-data/person/xiaozeyu/FSDC/indices/new_val_list.txt
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - class_map: /big-data/person/xiaozeyu/FSDC/indices/class_map.json
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - cache_root: /big-data/person/xiaozeyu/FSDC/outputs/cache
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - image_size: 224
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - new_class_ids: [10]
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - new_class_names: ['traffic_light']
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - use_patch: False
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - train_ratio: 0.85
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - split_seed: 42
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - backbone: ViT-B-16
+2025-10-17 02:10:50.895 | INFO     | src.utils.common:log_experiment_info:116 - pretrained: /big-data/person/xiaozeyu/DataDistillation/clip-vit-base-patch16
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - n_compress: 32
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - epochs: 1
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - batch_size: 128
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - lr: 0.001
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - weight_decay: 0.0001
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - use_cache: True
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - task_name: add_class
+2025-10-17 02:10:50.896 | INFO     | src.utils.common:log_experiment_info:116 - previous_stage_ckpt: outputs/compress32_addcls_stage2/best_incremental.ckpt
+2025-10-17 02:10:52.586 | INFO     | src.utils.common:load_feature_cache:68 - 加载缓存特征: /big-data/person/xiaozeyu/FSDC/outputs/cache/ViT-B-16_size224_train.pt
+2025-10-17 02:10:52.649 | INFO     | src.utils.common:__enter__:87 - 开始计时: 提取train_new特征
+2025-10-17 02:10:59.424 | INFO     | src.utils.common:__exit__:92 - 结束计时: 提取train_new特征, 耗时 6.77 秒
+2025-10-17 02:10:59.457 | INFO     | src.utils.common:load_feature_cache:68 - 加载缓存特征: /big-data/person/xiaozeyu/FSDC/outputs/cache/ViT-B-16_size224_val.pt
+2025-10-17 02:10:59.479 | INFO     | src.utils.common:__enter__:87 - 开始计时: 提取val_new特征
+2025-10-17 02:11:01.484 | INFO     | src.utils.common:__exit__:92 - 结束计时: 提取val_new特征, 耗时 2.01 秒
+2025-10-17 02:11:02.074 | INFO     | __main__:main:337 - Epoch 1: top1=0.3437 top5=0.9461

@@ -1,0 +1,16 @@
+{
+  "params": {
+    "clip_backbone": 0,
+    "compress_head": 16416,
+    "classifier": 330,
+    "compress_pipeline": 16746
+  },
+  "data": {
+    "train_samples": 68326,
+    "val_samples": 12058
+  },
+  "replay_buffer": {
+    "exemplar_count": 200,
+    "feature_dim": 512
+  }
+}

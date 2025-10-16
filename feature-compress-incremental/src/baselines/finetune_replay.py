@@ -12,8 +12,16 @@ from ..data.coco_cls import build_dataset, read_class_map  # 导入数据集函�
 from ..data.transforms import build_transform  # 导入变换构建函数
 from ..models.clip_wrapper import FrozenCLIPEncoder  # 导入CLIP封装
 from ..models.classifier import LinearClassifier  # 导入线性分类器
-from ..utils.common import ensure_dir, load_yaml_config, set_seed, get_device, save_json, log_experiment_info  # 导入通用工具
-from ..utils.metrics import topk_accuracy, build_confusion, plot_confusion, confusion_to_dict  # 导入指标工具
+from ..utils.common import ensure_dir, load_yaml_config, set_seed, get_device, save_json, log_experiment_info, setup_logging  # 导入通用工具
+from ..utils.metrics import (  # 导入指标工具
+    topk_accuracy,
+    build_confusion,
+    plot_confusion,
+    confusion_to_dict,
+    per_class_accuracy,
+    summarize_incremental_metrics,
+)  # 导入指标工具
+from loguru import logger  # 导入日志工具
 
 
 def parse_args() -> argparse.Namespace:  # 定义命令行解析函数
@@ -67,6 +75,8 @@ def main() -> None:  # 定义主函数
     cfg = load_configs(args)  # 加载配置
     set_seed(args.seed)  # 设置随机种子
     ensure_dir(args.save_dir)  # 确保输出目录存在
+    log_path = setup_logging(args.save_dir, 'finetune_replay.log')  # 配置日志文件
+    logger.info(f'Log file: {log_path}')  # 输出日志路径
     device = get_device()  # 获取设备
     log_experiment_info(cfg)  # 打印配置
     transform_train = build_transform(cfg.get('image_size', 224), True)  # 构建训练变换
@@ -153,7 +163,7 @@ def main() -> None:  # 定义主函数
         logits_tensor = torch.cat(logits_list, dim=0)  # 拼接输出
         labels_tensor = torch.cat(labels_list, dim=0)  # 拼接标签
         acc = topk_accuracy(logits_tensor, labels_tensor, ks=(1, 5))  # 计算精度
-        print(f'Epoch {epoch}: top1={acc[1]:.4f} top5={acc[5]:.4f}')  # 打印日志
+        logger.info(f'Epoch {epoch}: top1={acc[1]:.4f} top5={acc[5]:.4f}')  # 打印日志
         if acc[1] > best_top1:  # 判断是否刷新最佳
             best_top1 = acc[1]  # 更新最佳Top1
             torch.save({'classifier': classifier.state_dict(), 'config': cfg}, args.save_dir / 'best_finetune.ckpt')  # 保存最佳权重
@@ -161,7 +171,18 @@ def main() -> None:  # 定义主函数
     confusion = build_confusion(logits_tensor, labels_tensor, old_class_count + len(new_class_names))  # 构建混淆矩阵
     plot_confusion(confusion, class_names, args.save_dir / 'confusion_finetune.png')  # 绘制混淆矩阵
     save_json(confusion_to_dict(confusion, class_names), args.save_dir / 'confusion_finetune.json')  # 保存混淆矩阵
-    save_json({'best_top1': best_top1, 'replay_per_class': cfg['replay_per_class']}, args.save_dir / 'metrics_finetune.json')  # 保存指标
+    per_class_acc = per_class_accuracy(confusion, class_names)  # 计算逐类精度
+    save_json(per_class_acc, args.save_dir / 'per_class_accuracy.json')  # 保存逐类精度
+    summary_metrics = summarize_incremental_metrics(
+        confusion,
+        class_names,
+        old_class_names,
+        baseline_old_acc=cfg.get('baseline_old_acc'),
+        baseline_new_acc=cfg.get('baseline_new_acc'),
+    )  # summarize incremental metrics
+    summary_metrics['best_top1'] = best_top1  # record best Top1
+    summary_metrics['replay_per_class'] = cfg['replay_per_class']  # record replay size
+    save_json(summary_metrics, args.save_dir / 'metrics_finetune.json')  # 保存指标
 
 
 if __name__ == '__main__':  # 判断是否主入口

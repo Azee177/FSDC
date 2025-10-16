@@ -1,0 +1,122 @@
+{
+  "person": {
+    "person": 7903,
+    "car": 69,
+    "dog": 25,
+    "cat": 10,
+    "bicycle": 14,
+    "bus": 17,
+    "truck": 28,
+    "boat": 15,
+    "chair": 66,
+    "bench": 37
+  },
+  "car": {
+    "person": 124,
+    "car": 468,
+    "dog": 8,
+    "cat": 1,
+    "bicycle": 10,
+    "bus": 14,
+    "truck": 42,
+    "boat": 2,
+    "chair": 4,
+    "bench": 9
+  },
+  "dog": {
+    "person": 32,
+    "car": 2,
+    "dog": 258,
+    "cat": 5,
+    "bicycle": 0,
+    "bus": 0,
+    "truck": 4,
+    "boat": 1,
+    "chair": 9,
+    "bench": 2
+  },
+  "cat": {
+    "person": 15,
+    "car": 3,
+    "dog": 10,
+    "cat": 414,
+    "bicycle": 1,
+    "bus": 0,
+    "truck": 0,
+    "boat": 0,
+    "chair": 10,
+    "bench": 1
+  },
+  "bicycle": {
+    "person": 32,
+    "car": 4,
+    "dog": 0,
+    "cat": 2,
+    "bicycle": 68,
+    "bus": 0,
+    "truck": 1,
+    "boat": 1,
+    "chair": 3,
+    "bench": 1
+  },
+  "bus": {
+    "person": 35,
+    "car": 16,
+    "dog": 0,
+    "cat": 0,
+    "bicycle": 1,
+    "bus": 360,
+    "truck": 8,
+    "boat": 1,
+    "chair": 0,
+    "bench": 4
+  },
+  "truck": {
+    "person": 64,
+    "car": 60,
+    "dog": 0,
+    "cat": 1,
+    "bicycle": 0,
+    "bus": 16,
+    "truck": 326,
+    "boat": 1,
+    "chair": 3,
+    "bench": 5
+  },
+  "boat": {
+    "person": 34,
+    "car": 2,
+    "dog": 2,
+    "cat": 0,
+    "bicycle": 0,
+    "bus": 2,
+    "truck": 1,
+    "boat": 269,
+    "chair": 5,
+    "bench": 6
+  },
+  "chair": {
+    "person": 105,
+    "car": 5,
+    "dog": 9,
+    "cat": 15,
+    "bicycle": 3,
+    "bus": 0,
+    "truck": 3,
+    "boat": 0,
+    "chair": 627,
+    "bench": 16
+  },
+  "bench": {
+    "person": 63,
+    "car": 7,
+    "dog": 6,
+    "cat": 8,
+    "bicycle": 3,
+    "bus": 1,
+    "truck": 4,
+    "boat": 4,
+    "chair": 15,
+    "bench": 197
+  }
+}

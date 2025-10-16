@@ -13,7 +13,8 @@ from .data.transforms import build_transform  # 导入变换构建函数
 from .models.clip_wrapper import FrozenCLIPEncoder  # 导入CLIP封装类
 from .models.compress_head import CompressionHead  # 导入压缩映射模块
 from .models.classifier import LinearClassifier  # 导入线性分类器
-from .utils.common import ensure_dir, load_yaml_config, log_experiment_info, get_device, set_seed, save_json, count_parameters  # 导入通用工具函数
+from .utils.common import ensure_dir, load_yaml_config, log_experiment_info, get_device, set_seed, save_json, count_parameters, setup_logging  # 导入通用工具函数
+from loguru import logger  # 导入日志工具
 from .utils.metrics import topk_accuracy, build_confusion, plot_confusion, confusion_to_dict  # 导入指标工具函数
 
 
@@ -93,6 +94,8 @@ def main() -> None:  # 定义主函数
     cfg = load_configs(args)  # 加载配置
     set_seed(args.seed)  # 设置随机种子
     ensure_dir(args.save_dir)  # 确保输出目录存在
+    log_path = setup_logging(args.save_dir, 'train_initial.log')  # 配置日志文件
+    logger.info(f'Log file: {log_path}')  # 输出日志路径
     device = get_device()  # 获取可用设备
     log_experiment_info(cfg)  # 打印实验配置
     train_loader_raw, val_loader_raw, class_map = prepare_dataloaders(cfg, args)  # 准备原始加载器
@@ -153,7 +156,7 @@ def main() -> None:  # 定义主函数
             'top5': acc[5],  # 记录Top5精度
         }  # 构建指标记录
         history.append(record)  # 保存指标
-        print(f'Epoch {epoch}: train_loss={train_loss:.4f} val_loss={val_loss:.4f} top1={acc[1]:.4f} top5={acc[5]:.4f}')  # 打印日志
+        logger.info(f'Epoch {epoch}: train_loss={train_loss:.4f} val_loss={val_loss:.4f} top1={acc[1]:.4f} top5={acc[5]:.4f}')  # 打印日志
         if acc[1] > best_top1:  # 判断是否刷新最佳
             best_top1 = acc[1]  # 更新最佳Top1
             best_path = args.save_dir / 'best.ckpt'  # 构建最佳权重路径

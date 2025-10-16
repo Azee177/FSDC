@@ -7,3 +7,6 @@ datasets>=4.2.0
 numpy>=1.24
 Pillow>=10.0
 scikit-learn>=1.2
+matplotlib>=3.7
+loguru>=0.7
+umap-learn>=0.5
